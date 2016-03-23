@@ -1,6 +1,10 @@
 package command
 
-import "testing"
+import (
+	"fmt"
+	"os"
+	"testing"
+)
 
 // TestLoadToml test
 func TestLoadToml(t *testing.T) {
@@ -19,7 +23,7 @@ func TestLoadToml(t *testing.T) {
 			},
 		},
 	}
-	config, err := LoadToml("test.toml")
+	config, err := loadToml("test.toml")
 	if err != nil {
 		t.Error(err)
 	} else {
@@ -56,10 +60,18 @@ func TestLoadToml(t *testing.T) {
 	t.Log("success load 'test.toml'")
 
 	// 失敗するはずのテスト
-	config, err = LoadToml("not_exist.toml")
+	config, err = loadToml("not_exist.toml")
 	if err == nil {
 		t.Error("not_exits.toml is not exists, but error was invalid.")
 	} else {
 		t.Log("succeed.")
 	}
+}
+
+//
+func TestParseDependTree(t *testing.T) {
+	config, _ := loadToml("test.toml")
+	parseDependTree(config)
+	info, err := os.Stat("echo")
+	fmt.Println(info, err)
 }
