@@ -1,0 +1,9 @@
+[[targets]]
+name = "hello"
+commands = ["echo hello", "echo world",]
+depends = ["echo"]
+
+[[targets]]
+name = "world"
+commands = ["echo HELLO", "echo WORLD",]
+depends = ["echo"]
