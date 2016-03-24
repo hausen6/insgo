@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"strings"
+
+	"github.com/hausen6/go-utils/osutils"
 )
 
 // InstallCommand command definition
@@ -28,6 +30,16 @@ func (c *InstallCommand) Run(args []string) int {
 		return 2
 	}
 
+	// load toml file
+	config, err := loadToml(parser.Arg(0))
+	if err != nil {
+		c.Ui.Error(fmt.Sprintf("[Error] %v", err))
+		return 1
+	}
+	fmt.Println(*config)
+
+	// 全てのdependsが満たされているかチェック
+	osutils.FindExecutable("echo")
 	return 0
 }
 
