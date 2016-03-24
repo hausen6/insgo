@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/hausen6/insgo/command"
+	"github.com/mattn/go-colorable"
 	"github.com/mitchellh/cli"
 )
 
@@ -14,11 +15,12 @@ func Run(args []string) int {
 	// It defines output color and its stdout/stderr stream.
 	meta := &command.Meta{
 		Ui: &cli.ColoredUi{
-			InfoColor:  cli.UiColorBlue,
+			InfoColor:  cli.UiColorCyan,
+			WarnColor:  cli.UiColorYellow,
 			ErrorColor: cli.UiColorRed,
 			Ui: &cli.BasicUi{
-				Writer:      os.Stdout,
-				ErrorWriter: os.Stderr,
+				Writer:      colorable.NewColorableStdout(),
+				ErrorWriter: colorable.NewColorableStderr(),
 				Reader:      os.Stdin,
 			},
 		}}
